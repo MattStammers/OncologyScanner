@@ -1,5 +1,5 @@
 # OncologyScanner
-Flask application. User uploads PDF. Text is extracted and parsed to JohnSnowLabs' MedicalNerModel, a pre-trained named entity recognition model, that can detect medical terms.
+Flask application. User uploads PDF. Text is extracted and parsed to JohnSnowLabs' MedicalNerModel, a pre-trained named entity recognition model, that can detect medical terms. Hadoop file management system, running on JDK and Spark for data processing. Spark most compatible with Java 8 and 11.
 
 **Points of interest**: 
 - Limited pathology reports for oncology, have started with non-oncology reports first in the meantime.
