@@ -8,5 +8,6 @@ Flask application. User uploads PDF. Text is extracted and parsed to JohnSnowLab
 **Pain points**:
 - Package dependancies are incredibly painful to deal with (still bugs).
 - Issues with hadoop (file manager) and Spark (engine), that allows SparkNLP to run.
+- The mechanisms that SparkNLP uses are not updated at the same time; latest version of hadoop may not be compatible with latest version of Spark.
 
 Aim is to finalise the app over the next couple of days.
