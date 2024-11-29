@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Extracted Cancer Information</title>
+</head>
+<body>
+    <h1>Extracted Cancer-Related Information</h1>
+
+    <h2>Diagnosis</h2>
+    <ul>
+        {% for item in extracted_info.diagnosis %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Genetic Mutations</h2>
+    <ul>
+        {% for item in extracted_info.genetic_mutations %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Tumor Staging</h2>
+    <ul>
+        {% for item in extracted_info.tumor_staging %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Clinical Staging</h2>
+    <ul>
+        {% for item in extracted_info.clinical_staging %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('home') }}">Upload Another PDF</a>
+</body>
+</html>
