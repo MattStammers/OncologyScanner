@@ -14,5 +14,4 @@ Update 02/12/2024:
 - Able to access Spark NLP via VScode
 - Unable to download NER models from JohnSnowLabs due to errors in Hadeoop configuration (Hadoop being phased out regardless)
 - Using Google Colab notebook to perform NER of medical terms
-
-Aim is to finalise the app over the next couple of days.
+- Now using spaCy model "en_ner_bc5cdr_md"
