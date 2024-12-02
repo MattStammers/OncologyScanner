@@ -1,28 +1,21 @@
-import sparknlp
-from sparknlp.pretrained import PretrainedPipeline
+import spacy
 
-# Initialize Spark NLP
-spark = sparknlp.start()
-pipeline = PretrainedPipeline("clinical_ner", "en", "clinical/models")
+# Load the SciSpacy model
+nlp = spacy.load("en_ner_bc5cdr_md")
 
+# Define categories of interest
 def analyse_text(text):
-    # Run Spark NLP pipeline
-    results = pipeline.annotate(text)
-    
-    # Extract specific entities
-    diagnosis = [entity for entity, label in zip(results['entities'], results['ner_labels']) if label == 'DIAGNOSIS']
-    genetic_mutations = [entity for entity, label in zip(results['entities'], results['ner_labels']) if label == 'GENETIC_MUTATION']
-    tumour_staging = [entity for entity, label in zip(results['entities'], results['ner_labels']) if label == 'TUMOUR_STAGING']
-    clinical_staging = [entity for entity, label in zip(results['entities'], results['ner_labels']) if label == 'CLINICAL_STAGING']
-    
-    # Organise extracted data
-    extracted_info = {
-        "diagnosis": diagnosis,
-        "genetic_mutations": genetic_mutations,
-        "tumour_staging": tumour_staging,
-        "clinical_staging": clinical_staging
-    }
-    
-    return extracted_info
-    
-    
+    doc = nlp(text)
+    oncology_entities = []
+
+    # Define keywords for filtering
+    diagnosis_keywords = ["cancer", "tumor", "carcinoma", "melanoma", "lymphoma"]
+    genetic_keywords = ["KRAS", "HER2", "EGFR", "BRCA", "TP53", "+", "-"]
+    staging_keywords = ["TNM", "stage", "stage I", "stage II", "stage III", "stage IV", "IV", "I+", "T", "N", "M"]
+
+    for entity in doc.ents:
+        entity_lower = entity.text.lower()
+        if any(keyword in entity_lower for keyword in diagnosis_keywords + genetic_keywords + staging_keywords):
+            oncology_entities.append({"text": entity.text, "label": entity.label_})
+
+    return oncology_entities
