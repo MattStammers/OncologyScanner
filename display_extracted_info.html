@@ -1,39 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>Extracted Cancer Information</title>
+    <title>Extracted Oncology Information</title>
 </head>
 <body>
-    <h1>Extracted Cancer-Related Information</h1>
-
-    <h2>Diagnosis</h2>
-    <ul>
-        {% for item in extracted_info.diagnosis %}
-        <li>{{ item }}</li>
+    <h1>Extracted Oncology Information</h1>
+    {% if extracted_info %}
+        <ul>
+        {% for entity in extracted_info %}
+            <li>{{ entity.text }} ({{ entity.label }})</li>
         {% endfor %}
-    </ul>
-
-    <h2>Genetic Mutations</h2>
-    <ul>
-        {% for item in extracted_info.genetic_mutations %}
-        <li>{{ item }}</li>
-        {% endfor %}
-    </ul>
-
-    <h2>Tumor Staging</h2>
-    <ul>
-        {% for item in extracted_info.tumor_staging %}
-        <li>{{ item }}</li>
-        {% endfor %}
-    </ul>
-
-    <h2>Clinical Staging</h2>
-    <ul>
-        {% for item in extracted_info.clinical_staging %}
-        <li>{{ item }}</li>
-        {% endfor %}
-    </ul>
-
-    <a href="{{ url_for('home') }}">Upload Another PDF</a>
+        </ul>
+    {% else %}
+        <p>No oncology-related entities were found in the text.</p>
+    {% endif %}
 </body>
 </html>
