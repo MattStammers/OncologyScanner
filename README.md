@@ -10,4 +10,9 @@ Flask application. User uploads PDF. Text is extracted and parsed to JohnSnowLab
 - Issues with hadoop (file manager) and Spark (engine), that allows SparkNLP to run.
 - The mechanisms that SparkNLP uses are not updated at the same time; latest version of hadoop may not be compatible with latest version of Spark.
 
+Update 02/12/2024:
+- Able to access Spark NLP via VScode
+- Unable to download NER models from JohnSnowLabs
+- Using Google Colab notebook to perform NER of medical terms
+
 Aim is to finalise the app over the next couple of days.
