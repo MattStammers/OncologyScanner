@@ -5,6 +5,8 @@ Flask application. User uploads PDF. Text is extracted and parsed to JohnSnowLab
 
 The best way to get started with the notebook is to use Google Collab.
 
+- Please note the app has only been tested running Python 3.9. Other versions may fail.
+
 To run the flask up install postgres, set up a database and then run:
 
 ```shell
