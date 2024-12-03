@@ -3,15 +3,16 @@ Flask application. User uploads PDF. Text is extracted and parsed to JohnSnowLab
 
 ## Quickstart:
 
-The best way to get started is to use Google Collab and run the notebook.
+The best way to get started with the notebook is to use Google Collab.
 
-The flask app is not yet working (in Windows) but to deploy the flask app locally you would run:
+To run the flask up install postgres, set up a database and then run:
 
 ```shell
-pip install poetry \
-poetry install \
-poetry shell \
-python main.py
+python -m -venv oncscanner /
+cd oncscanner /
+cd Scripts /s
+activate.bat /
+pip install -r requirements.txt
 ```
 
 **Points of interest**: 
@@ -19,7 +20,7 @@ python main.py
 - Used SparkNLP by JohnSnowLabs, seems to be the superior open-source model.
 
 **Pain points**:
-- Package dependancies are incredibly painful to deal with (still bugs).
+- Use the requirements.txt file
 - Issues with hadoop (file manager) and Spark (engine), that allows SparkNLP to run.
 - The mechanisms that SparkNLP uses are not updated at the same time; latest version of hadoop may not be compatible with latest version of Spark.
 
