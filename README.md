@@ -1,6 +1,19 @@
 # OncologyScanner
 Flask application. User uploads PDF. Text is extracted and parsed to JohnSnowLabs' MedicalNerModel, a pre-trained named entity recognition model, that can detect medical terms. Hadoop file management system, running on JDK and Spark for data processing. Spark most compatible with Java 8 and 11.
 
+## Quickstart:
+
+The best way to get started is to use Google Collab and run the notebook.
+
+The flask app is not yet working (in Windows) but to deploy the flask app locally you would run:
+
+```shell
+pip install poetry \
+poetry install \
+poetry shell \
+python main.py
+```
+
 **Points of interest**: 
 - Limited pathology reports for oncology, have started with non-oncology reports first in the meantime.
 - Used SparkNLP by JohnSnowLabs, seems to be the superior open-source model.
