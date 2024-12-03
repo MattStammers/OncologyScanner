@@ -1,5 +1,9 @@
+# Connect to database
+# Database Configuration
+import psycopg2
+
 # Flask app
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from extract_text_from_pdf import extract_text_from_pdf 
 from analyse_text import analyse_text
 
@@ -8,6 +12,36 @@ import os
 
 # Flask object
 app = Flask(__name__)
+
+DATABASE_CONFIG = {
+    'dbname': 'oncology_db',
+    'user': 'postgres',
+    'password': 'quizzy123',
+    'host': 'localhost',
+    'port': '5432',
+}
+
+def get_db_connection():
+    try:
+        conn = psycopg2.connect(**DATABASE_CONFIG)
+        return conn
+    except Exception as e:
+        print(f"Database connection error: {e}")
+        return None
+
+@app.route('/data')
+def fetch_data():
+    conn = get_db_connection()
+    if conn is None:
+        return jsonify({"error": "Database connection failed"}), 500
+    
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM extracted_terms")  # Replace 'my_table' with your table name
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    
+    return jsonify(rows)
 
 # Folder to save uploaded files
 UPLOAD_FOLDER = 'uploads'
@@ -42,6 +76,23 @@ def upload():
         # Analyse text with spark-nlp
         extracted_info = analyse_text(text)
         
+        # Insert extracted terms into the database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        for entity in extracted_info:
+            cursor.execute(
+                """
+                INSERT INTO extracted_terms (text, label)
+                VALUES (%s, %s)
+                """,
+                (entity['text'], entity['label'])
+            )
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+
         # For now, we just display the extracted text
         return render_template('display_extracted_info.html', extracted_info=extracted_info)
         #return render_template('display_text.html', extracted_text=text)
